@@ -1093,6 +1093,24 @@ def start_game_fr():
                            f"-",
                 )
         
+        elif dialogue_fr["text"] == f"Professor Sun: Lists are containers that can store various types of data, such as strings, integers, float values, boolean values, or even other lists! Today we'll learn about list slicing, list indices, and list comprehension!":
+            overlay("characters\profs\Sun.png")
+            change_options(
+                            f"Next.", 
+                           f"Narrator: Professor Sun explains all of those concepts thoroughly and you also understand it even more because you are sitting next to Jis and Gun.",
+                           f"-",
+                           f"-",
+                )
+        
+        elif dialogue_fr["text"] == f"Narrator: Professor Sun explains all of those concepts thoroughly and you also understand it even more because you are sitting next to Jis and Gun.":
+            overlay("characters\profs\Sun.png")
+            change_options(
+                            f"Next.", 
+                           f"Professor Sun points at you and calls you out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 12 or higher in 'Tech' skill to eliminate wrong options.",
+                           f"-",
+                           f"-",
+                )
+        
         elif dialogue_fr["text"] == f"Narrator: As Professor Sun starts his lecture, Jaja and the others start playing games, watch YouTube, and other things that are not at all related to Python. Lion is asleep already.\nYou feel compelled to be distracted as well. You must make a self control roll to focus on class (roll higher than 15).":
             overlay("characters\Jaja\Jaja-Smile.png")
             change_options(
@@ -1110,7 +1128,7 @@ def start_game_fr():
                 change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Self Control']}, Total: {rolled+final_player_skills['Self Control']}\nNarrator: You are now distracted, Professor Sun's lecture goes into your ear and out the other.")
                 change_options(
                             f"Next.", 
-                           f"Narrator: Professor Sun points at you and calls out while you are zoning out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.",
+                           f"Narrator: Professor Sun points at you and calls you out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.",
                            f"-",
                            f"-",
                 )
@@ -1124,7 +1142,7 @@ def start_game_fr():
                            f"-",
                 )
         
-        elif dialogue_fr["text"] == f"Narrator: Professor Sun points at you and calls out while you are zoning out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.":
+        elif dialogue_fr["text"] == f"Narrator: Professor Sun points at you and calls you out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options." or dialogue_fr["text"]=="Professor Sun points at you and calls you out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 12 or higher in 'Tech' skill to eliminate wrong options.":
             overlay("characters\profs\Sun.png")
             show_quiz_frame()
             show_quiz(
@@ -1142,41 +1160,76 @@ def start_game_fr():
         
         elif dialogue_fr["text"] == f"programming_tech_check_1":
             rolled = random.choice(d20)
-            if rolled + final_player_skills["Tech"] < 15:
-                checks_dict["programming_tech_check_1"] = "Failed"
-                change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.")
-                show_quiz(
-                "Parentheses ().", "Wrong 1", tk.NORMAL,
-                "Square brackets [].",'Right', tk.NORMAL,
-                "Curly brackets {}.", 'Wrong 2', tk.NORMAL,
-                "Quotation marks ' '.", "Wrong 3", tk.NORMAL
-                )
-                change_options(
-                            f"Submit answer.", 
-                           f"programming_tech_quiz_1",
-                           f"-",
-                           f"-",
-                )
-            elif rolled + final_player_skills["Tech"] >= 15:
-                checks_dict["programming_tech_check_1"] = "Pass"
-                change_dialogue(f"[SUCCESS]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.")
-                show_quiz(
-                "Parentheses ().", "Wrong 1", tk.DISABLED,
-                "Square brackets [].",'Right', tk.NORMAL,
-                "Curly brackets {}.", 'Wrong 2', tk.NORMAL,
-                "Quotation marks ' '.", "Wrong 3", tk.DISABLED
-                )
-                change_options(
-                            f"Submit answer.", 
-                           f"programming_tech_quiz_1",
-                           f"-",
-                           f"-",
-                )
+            if checks_dict["sit_with_goats"] == False:
+                if rolled + final_player_skills["Tech"] < 15:
+                    checks_dict["programming_tech_check_1"] = "Failed"
+                    change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.")
+                    show_quiz(
+                    "Parentheses ().", "Wrong 1", tk.NORMAL,
+                    "Square brackets [].",'Right', tk.NORMAL,
+                    "Curly brackets {}.", 'Wrong 2', tk.NORMAL,
+                    "Quotation marks ' '.", "Wrong 3", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_1",
+                            f"-",
+                            f"-",
+                    )
+                elif rolled + final_player_skills["Tech"] >= 15:
+                    checks_dict["programming_tech_check_1"] = "Pass"
+                    change_dialogue(f"[SUCCESS]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.")
+                    show_quiz(
+                    "Parentheses ().", "Wrong 1", tk.DISABLED,
+                    "Square brackets [].",'Right', tk.NORMAL,
+                    "Curly brackets {}.", 'Wrong 2', tk.NORMAL,
+                    "Quotation marks ' '.", "Wrong 3", tk.DISABLED
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_1",
+                            f"-",
+                            f"-",
+                    )
+            else:
+                if rolled + final_player_skills["Tech"] < 12:
+                    checks_dict["programming_tech_check_1"] = "Failed"
+                    change_dialogue(f"[FAILED]\nRequired to pass: 12, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.")
+                    show_quiz(
+                    "Parentheses ().", "Wrong 1", tk.NORMAL,
+                    "Square brackets [].",'Right', tk.NORMAL,
+                    "Curly brackets {}.", 'Wrong 2', tk.NORMAL,
+                    "Quotation marks ' '.", "Wrong 3", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_1",
+                            f"-",
+                            f"-",
+                    )
+                elif rolled + final_player_skills["Tech"] >= 12:
+                    checks_dict["programming_tech_check_1"] = "Pass"
+                    change_dialogue(f"[SUCCESS]\nRequired to pass: 12, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.")
+                    show_quiz(
+                    "Parentheses ().", "Wrong 1", tk.DISABLED,
+                    "Square brackets [].",'Right', tk.NORMAL,
+                    "Curly brackets {}.", 'Wrong 2', tk.NORMAL,
+                    "Quotation marks ' '.", "Wrong 3", tk.DISABLED
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_1",
+                            f"-",
+                            f"-",
+                    )
             
         elif dialogue_fr["text"] == "programming_tech_quiz_1":
             if get_answer() == "Right":
                 selected_answer.set(" ")
-                change_dialogue("Professor Sun: Good job! you are correct! Let's see if you can do this question!\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.")
+                if checks_dict["sit_with_goats"] == False:
+                    change_dialogue("Professor Sun: Good job! you are correct! Let's see if you can do this question!\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.")
+                else:
+                    change_dialogue("Professor Sun: Good job! you are correct! Let's see if you can do this question!\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))\n\nNarrator: Roll 12 or higher in 'Tech' skill to eliminate wrong options.")
                 hide_quiz()
                 checks_dict["programming_tech_quiz_1"] = "Pass"
                 change_options(
@@ -1194,7 +1247,10 @@ def start_game_fr():
                 )
                 
             else:
-                change_dialogue("Professor Sun: Hmm, that doesn't look correct. That's fine, let's see if you can do this question!\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.")
+                if checks_dict["sit_with_goats"] == False:
+                    change_dialogue("Professor Sun: Hmm, that doesn't look correct. That's fine, let's see if you can do this question!\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.")
+                else:
+                    change_dialogue("Professor Sun: Hmm, that doesn't look correct. That's fine, let's see if you can do this question!\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))\n\nNarrator: Roll 12 or higher in 'Tech' skill to eliminate wrong options.")
                 selected_answer.set(" ")
                 hide_quiz()
                 checks_dict["programming_tech_quiz_1"] = "Failed"
@@ -1214,36 +1270,203 @@ def start_game_fr():
         
         elif dialogue_fr["text"] == f"programming_tech_check_2":
             rolled = random.choice(d20)
-            if rolled + final_player_skills["Tech"] < 15:
-                checks_dict["programming_tech_check_2"] = "Failed"
-                change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))")
-                show_quiz(
-                "10", "Wrong 1", tk.NORMAL,
-                "30",'Wrong 3', tk.NORMAL,
-                "55", 'Wrong 2', tk.NORMAL,
-                "35", "Right", tk.NORMAL
-                )
+            if checks_dict["sit_with_goats"] == False:
+                if rolled + final_player_skills["Tech"] < 15:
+                    checks_dict["programming_tech_check_2"] = "Failed"
+                    change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))")
+                    show_quiz(
+                    "10", "Wrong 1", tk.NORMAL,
+                    "30",'Wrong 3', tk.NORMAL,
+                    "55", 'Wrong 2', tk.NORMAL,
+                    "35", "Right", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_2",
+                            f"-",
+                            f"-",
+                    )
+                elif rolled + final_player_skills["Tech"] >= 15:
+                    checks_dict["programming_tech_check_2"] = "Pass"
+                    change_dialogue(f"[SUCCESS]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))")
+                    show_quiz(
+                    "10", "Wrong 1", tk.DISABLED,
+                    "30",'Wrong 3', tk.NORMAL,
+                    "55", 'Wrong 2', tk.DISABLED,
+                    "35", "Right", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_2",
+                            f"-",
+                            f"-",
+                    )
+            else:
+                if rolled + final_player_skills["Tech"] < 12:
+                    checks_dict["programming_tech_check_2"] = "Failed"
+                    change_dialogue(f"[FAILED]\nRequired to pass: 12, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))")
+                    show_quiz(
+                    "10", "Wrong 1", tk.NORMAL,
+                    "30",'Wrong 3', tk.NORMAL,
+                    "55", 'Wrong 2', tk.NORMAL,
+                    "35", "Right", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_2",
+                            f"-",
+                            f"-",
+                    )
+                elif rolled + final_player_skills["Tech"] >= 15:
+                    checks_dict["programming_tech_check_2"] = "Pass"
+                    change_dialogue(f"[SUCCESS]\nRequired to pass: 12, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))")
+                    show_quiz(
+                    "10", "Wrong 1", tk.DISABLED,
+                    "30",'Wrong 3', tk.NORMAL,
+                    "55", 'Wrong 2', tk.DISABLED,
+                    "35", "Right", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_2",
+                            f"-",
+                            f"-",
+                    )
+        
+        elif dialogue_fr["text"] == "programming_tech_quiz_2":
+            if get_answer() == "Right":
+                selected_answer.set(" ")
+                if checks_dict["sit_with_goats"] == False:
+                    change_dialogue("Professor Sun: Nice! How about this question!\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.")
+                else:
+                    change_dialogue("Professor Sun: Nice! How about this question!\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]\n\nNarrator: Roll 12 or higher in 'Tech' skill to eliminate wrong options.")
+                hide_quiz()
+                checks_dict["programming_tech_quiz_2"] = "Pass"
                 change_options(
-                            f"Submit answer.", 
-                           f"programming_tech_quiz_2",
-                           f"-",
-                           f"-",
+                        f"Roll to eliminate answers.", 
+                        f"programming_tech_check_3",
+                        "-",
+                        "-",
                 )
-            elif rolled + final_player_skills["Tech"] >= 15:
-                checks_dict["programming_tech_check_2"] = "Pass"
-                change_dialogue(f"[SUCCESS]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.\nWhat is the output of the following program?\na = [0,1,2,3,4,5,6,7,8,9]\nb = a[5:]\na[5:8] = [10,20]\nprint(sum(b))")
+                show_quiz_frame()
                 show_quiz(
-                "10", "Wrong 1", tk.DISABLED,
-                "30",'Wrong 3', tk.NORMAL,
-                "55", 'Wrong 2', tk.DISABLED,
-                "35", "Right", tk.NORMAL
+                "4:7", "Right", tk.NORMAL,
+                "1:4",'Wrong 3', tk.NORMAL,
+                "2:5", 'Wrong 2', tk.NORMAL,
+                "6:9", "Wrong 1", tk.NORMAL
                 )
+                
+            else:
+                if checks_dict["sit_with_goats"] == False:
+                    change_dialogue("Professor Sun: Almost correct, but not quite. How about this question!\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.")
+                else:
+                    change_dialogue("Professor Sun: Almost correct, but not quite. How about this question!\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]\n\nNarrator: Roll 12 or higher in 'Tech' skill to eliminate wrong options.")
+                selected_answer.set(" ")
+                hide_quiz()
+                checks_dict["programming_tech_quiz_2"] = "Failed"
                 change_options(
-                            f"Submit answer.", 
-                           f"programming_tech_quiz_2",
-                           f"-",
-                           f"-",
+                        f"Next", 
+                        f"programming_tech_check_3",
+                        "-",
+                        "-",
                 )
+                show_quiz_frame()
+                show_quiz(
+                "4:7", "Right", tk.NORMAL,
+                "1:4",'Wrong 3', tk.NORMAL,
+                "2:5", 'Wrong 2', tk.NORMAL,
+                "6:9", "Wrong 1", tk.NORMAL
+                )
+        
+        elif dialogue_fr["text"] == f"programming_tech_check_3":
+            rolled = random.choice(d20)
+            if checks_dict["sit_with_goats"] == False:
+                if rolled + final_player_skills["Tech"] < 15:
+                    checks_dict["programming_tech_check_3"] = "Failed"
+                    change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]")
+                    show_quiz(
+                    "4:7", "Right", tk.NORMAL,
+                    "1:4",'Wrong 3', tk.NORMAL,
+                    "2:5", 'Wrong 2', tk.NORMAL,
+                    "6:9", "Wrong 1", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_3",
+                            f"-",
+                            f"-",
+                    )
+                elif rolled + final_player_skills["Tech"] >= 15:
+                    checks_dict["programming_tech_check_3"] = "Pass"
+                    change_dialogue(f"[SUCCESS]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]")
+                    show_quiz(
+                    "4:7", "Right", tk.NORMAL,
+                    "1:4",'Wrong 3', tk.NORMAL,
+                    "2:5", 'Wrong 2', tk.DISABLED,
+                    "6:9", "Wrong 1", tk.DISABLED
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_3",
+                            f"-",
+                            f"-",
+                    )
+            else:
+                if rolled + final_player_skills["Tech"] < 12:
+                    checks_dict["programming_tech_check_3"] = "Failed"
+                    change_dialogue(f"[FAILED]\nRequired to pass: 12, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]")
+                    show_quiz(
+                    "4:7", "Right", tk.NORMAL,
+                    "1:4",'Wrong 3', tk.NORMAL,
+                    "2:5", 'Wrong 2', tk.NORMAL,
+                    "6:9", "Wrong 1", tk.NORMAL
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_3",
+                            f"-",
+                            f"-",
+                    )
+                elif rolled + final_player_skills["Tech"] >= 12:
+                    checks_dict["programming_tech_check_3"] = "Pass"
+                    change_dialogue(f"[SUCCESS]\nRequired to pass: 12, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.\nWhat should be filled in the blank ___ so that the Python interpreter produces the output as shown?\np = [10,20,30,40,50,60,70,80,90]\nprint(p[___])\n[50, 60, 70]")
+                    show_quiz(
+                    "4:7", "Right", tk.NORMAL,
+                    "1:4",'Wrong 3', tk.NORMAL,
+                    "2:5", 'Wrong 2', tk.DISABLED,
+                    "6:9", "Wrong 1", tk.DISABLED
+                    )
+                    change_options(
+                                f"Submit answer.", 
+                            f"programming_tech_quiz_3",
+                            f"-",
+                            f"-",
+                    )
+        
+        elif dialogue_fr["text"] == "programming_tech_quiz_3":
+            if get_answer() == "Right":
+                selected_answer.set(" ")
+                change_dialogue("Professor Sun: Great job! That should be it for today.")
+                hide_quiz()
+                checks_dict["programming_tech_quiz_3"] = "Pass"
+                change_options(
+                        f"Next", 
+                        f"Narrator: Demo Over, thank you for playing!",
+                        "-",
+                        "-",
+                )
+            else:
+                change_dialogue("Professor Sun: Alright, that should be it for today.")
+                selected_answer.set(" ")
+                hide_quiz()
+                checks_dict["programming_tech_quiz_3"] = "Failed"
+                change_options(
+                        f"Next", 
+                        f"Narrator: Demo Over, thank you for playing!",
+                        "-",
+                        "-",
+                )
+        
 
 
            
