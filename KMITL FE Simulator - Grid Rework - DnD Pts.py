@@ -462,10 +462,10 @@ def start_game_fr():
     
     def show_quiz(text_1, value_1, state_1, text_2, value_2, state_2, text_3, value_3, state_3, text_4, value_4, state_4):
 
-        quiz_btn_1 = ttk.Radiobutton(quiz_frame, text=f"{text_1}", value=f"{value_1}", state=state_1, variable=selected_answer)
-        quiz_btn_2 = ttk.Radiobutton(quiz_frame, text=f"{text_2}", value=f"{value_2}", state=state_2, variable=selected_answer)
-        quiz_btn_3 = ttk.Radiobutton(quiz_frame, text=f"{text_3}", value=f"{value_3}", state=state_3, variable=selected_answer)
-        quiz_btn_4 = ttk.Radiobutton(quiz_frame, text=f"{text_4}", value=f"{value_4}",state=state_4, variable=selected_answer)
+        quiz_btn_1.config(text=f"{text_1}", value=f"{value_1}", state=state_1, variable=selected_answer)
+        quiz_btn_2.config(text=f"{text_2}", value=f"{value_2}", state=state_2, variable=selected_answer)
+        quiz_btn_3.config(text=f"{text_3}", value=f"{value_3}", state=state_3, variable=selected_answer)
+        quiz_btn_4.config(text=f"{text_4}", value=f"{value_4}",state=state_4, variable=selected_answer)
         quiz_btn_1.grid(column=0, row=1, sticky=tk.W)
         quiz_btn_2.grid(column=0, row=2, sticky=tk.W)
         quiz_btn_4.grid(column=1, row=2, sticky=tk.W)
@@ -691,7 +691,7 @@ def start_game_fr():
                            "-",
                            "-",
                 )
-            else:
+            elif rolled + final_player_skills["Insight"] >= 10:
                 change_dialogue(f"[SUCCESS]\nYou rolled: {rolled}, Your Modifier: {final_player_skills['Insight']}, Total: {rolled+final_player_skills['Insight']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.")
                 checks_dict["logic_insight_check_1"] = "Pass"
                 show_quiz(
@@ -945,7 +945,7 @@ def start_game_fr():
         
         #Programming sit with Gang
         elif dialogue_fr["text"] == f"Narrator: You choose go sit with Jaja, Saipan, Lion, Ping Pong, Dave, and Yacht":
-            checks_dict["sit_with_goats"] = "No"
+            checks_dict["sit_with_goats"] = False
             overlay("characters\Jaja\Jaja-Smile.png")
             change_options(
                             f"Next", 
@@ -956,7 +956,7 @@ def start_game_fr():
         
         elif dialogue_fr["text"] == f"Narrator: You sit and watch Jaja play Stardew Valley, as you watch her farm for vegetables, you notice a slight change in the atmosphere. The lights go out. A worried look fills Dave’s eyes.\nDave (Third Head of the Zenin Clan): He has come.":
             change_img("scenes\Programming Room BG - Dark.png")
-            overlay("characters\Dave\Dave-Smile.png")
+            overlay("characters\Dave\Dave-Neutral.png")
             change_options(
                             f"Next.", 
                            f"Narrator: The lights turn back on and in the light, you see in the middle of the room, a large ominous figure.\n(???): “Hello class” \nNarrator: It’s Professor Sun.",
@@ -966,7 +966,7 @@ def start_game_fr():
 
         #Programming Sit with GOATs
         elif dialogue_fr["text"] == f"Narrator: You choose to go sit next to the two people looking at Python code, they seem to be very intelligent people, unlike the people you ate lunch with. The girl notices you and says hi to you.\nJis (the GOAT): Hi, what's your name?":
-            checks_dict["sit_with_goats"] = "Yes"
+            checks_dict["sit_with_goats"] = True
             overlay("characters\Jis\Jis-Smile.png")
             change_options(
                             f"My name is {final_player_info['Nick Name']}.", 
@@ -1063,6 +1063,100 @@ def start_game_fr():
             change_options(
                             f"Next.", 
                            f"Narrator: Professor Sun walks giddily to his desk, you find yourself able to breathe again.\nProfessor Sun: So class, today we will be taking a look at lists today and we will be having a small quiz in class today so, I hope you’re ready",
+                           f"-",
+                           f"-",
+                )
+        
+        elif dialogue_fr["text"] == f"Narrator: Professor Sun walks giddily to his desk, you find yourself able to breathe again.\nProfessor Sun: So class, today we will be taking a look at lists today and we will be having a small quiz in class today so, I hope you’re ready":
+            overlay("characters\profs\Sun.png")
+            if checks_dict["sit_with_goats"] == True:
+                change_options(
+                            f"Next.", 
+                           f"Jis (the GOAT): Make sure to focus in class okay? Professor Sun might call on you for a question since you're a new student.",
+                           f"-",
+                           f"-",
+                )
+            elif checks_dict["sit_with_goats"] == False:
+                change_options(
+                            f"Next.", 
+                           f"Narrator: As Professor Sun starts his lecture, Jaja and the others start playing games, watch YouTube, and other things that are not at all related to Python. Lion is asleep already.\nYou feel compelled to be distracted as well. You must make a self control roll to focus on class (roll higher than 15).",
+                           f"-",
+                           f"-",
+                )
+        
+        elif dialogue_fr["text"] == f"Jis (the GOAT): Make sure to focus in class okay? Professor Sun might call on you for a question since you're a new student.":
+            overlay("characters\Jis\Jis-Smile.png")
+            change_options(
+                            f"Next.", 
+                           f"Professor Sun: Lists are containers that can store various types of data, such as strings, integers, float values, boolean values, or even other lists! Today we'll learn about list slicing, list indices, and list comprehension!",
+                           f"-",
+                           f"-",
+                )
+        
+        elif dialogue_fr["text"] == f"Narrator: As Professor Sun starts his lecture, Jaja and the others start playing games, watch YouTube, and other things that are not at all related to Python. Lion is asleep already.\nYou feel compelled to be distracted as well. You must make a self control roll to focus on class (roll higher than 15).":
+            overlay("characters\Jaja\Jaja-Smile.png")
+            change_options(
+                            f"Roll for self control", 
+                           f"programming_self_control_check_1",
+                           f"-",
+                           f"-",
+                )
+        
+        elif dialogue_fr["text"] == f"programming_self_control_check_1":
+            rolled = random.choice(d20)
+            overlay("characters\Transparent.png")
+            if rolled + final_player_skills["Self Control"] < 15:
+                checks_dict["programming_self_control_check_1"] = "Fail"
+                change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Self Control']}, Total: {rolled+final_player_skills['Self Control']}\nNarrator: You are now distracted, Professor Sun's lecture goes into your ear and out the other.")
+                change_options(
+                            f"Next.", 
+                           f"Narrator: Professor Sun points at you and calls out while you are zoning out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.",
+                           f"-",
+                           f"-",
+                )
+            elif rolled + final_player_skills["Self Control"] >= 15:
+                checks_dict["programming_self_control_check_1"] = "Pass"
+                change_dialogue(f"[SUCCESS]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Self Control']}, Total: {rolled+final_player_skills['Self Control']}\nNarrator: You resist your urges and listen to Professor Sun intently.")
+                change_options(
+                            f"Next.", 
+                           f"Professor Sun: Lists are containers that can store various types of data, such as strings, integers, float values, boolean values, or even other lists! Today we'll learn about list slicing, list indices, and list comprehension!",
+                           f"-",
+                           f"-",
+                )
+        
+        elif dialogue_fr["text"] == f"Narrator: Professor Sun points at you and calls out while you are zoning out.\nProfessor Sun: You there! What is a list enclosed by? Square brackets, parentheses, curly brackets or quotation marks?\n\nNarrator: Roll 15 or higher in 'Tech' skill to eliminate wrong options.":
+            overlay("characters\profs\Sun.png")
+            show_quiz_frame()
+            show_quiz(
+                "Parentheses ().", "Wrong 1", tk.NORMAL,
+                "Square brackets [].",'Right', tk.NORMAL,
+                "Curly brackets {}.", 'Wrong 2', tk.NORMAL,
+                "Quotation marks ' '.", "Wrong 3", tk.NORMAL
+            )
+            change_options(
+                            f"Roll to eliminate options", 
+                           f"programming_tech_check_1",
+                           "-",
+                           "-",
+            )
+        
+        elif dialogue_fr["text"] == f"programming_tech_check_1":
+            rolled = random.choice(d20)
+            if rolled + final_player_skills["Tech"] < 15:
+                checks_dict["programming_tech_check_1"] = "Fail"
+                change_dialogue(f"[FAILED]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: No options have been eliminated. Choose an answer before proceeding.")
+                change_options(
+                            f"Submit answer.", 
+                           f"programming_tech_quiz_1",
+                           f"-",
+                           f"-",
+                )
+            elif rolled + final_player_skills["Tech"] >= 15:
+                checks_dict["programming_tech_check_1"] = "Pass"
+                change_dialogue(f"[SUCCESS]\nRequired to pass: 15, You rolled: {rolled}, Your Modifier: {final_player_skills['Tech']}, Total: {rolled+final_player_skills['Tech']}\nNarrator: 2 options have been eliminated. Choose an answer before proceeding.")
+                change_options(
+                            f"Submit answer.", 
+                           f"programming_tech_quiz_1",
                            f"-",
                            f"-",
                 )
