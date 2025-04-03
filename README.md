@@ -1,4 +1,4 @@
-This is a proect I made for my programming final project in Year 1
+This is a project I made for my programming final project in Year 1
 
 It is a visual novel that includes many characters (my friends) and my professors
 Its features includes:
